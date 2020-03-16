@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Wordpress Plugin development using boilerplate for beginners.iml" filepath="$PROJECT_DIR$/.idea/Wordpress Plugin development using boilerplate for beginners.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Wordpress_Basic_Plugin_Development.iml" filepath="$PROJECT_DIR$/.idea/Wordpress_Basic_Plugin_Development.iml" />
     </modules>
   </component>
 </project>
