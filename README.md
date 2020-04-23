@@ -116,6 +116,34 @@ FONTE: https://www.youtube.com/watch?v=osAEmNsIi80
 ## <a name="parte3">3 - Create & Drop tables by Plugin</a>
 
 
+```php
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-webtutor_wppb01-activator.php
+ */
+function activate_webtutor_wppb01() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-activator.php';
+	//Webtutor_wppb01_Activator::activate();
+    $activator = new Webtutor_wppb01_Activator();
+    $activator->activate();
+}
+
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-webtutor_wppb01-deactivator.php
+ */
+function deactivate_webtutor_wppb01() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-deactivator.php';
+	//Webtutor_wppb01_Deactivator::deactivate();
+    $deactivador = new Webtutor_wppb01_Deactivator();
+    $deactivador->deactivate();
+}
+```
+
+- wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-activator.php
+- wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-deactivator.php
+
+
 
 [Voltar ao Índice](#indice)
 

@@ -152,3 +152,7 @@ node_modules/
 /wp-content/upgrade/
 /wp-content/uploads/
 /wp-content/plugins/wp-next-plugin/
+/wp-content/plugins/debug-bar/
+/wp-content/plugins/plugin-inspector/
+/wp-content/plugins/query-monitor/
+/wp-content/plugins/simply-show-hooks/

@@ -43,7 +43,9 @@ define( 'WEBTUTOR_WPPB01_VERSION', '1.0.0' );
  */
 function activate_webtutor_wppb01() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-activator.php';
-	Webtutor_wppb01_Activator::activate();
+	//Webtutor_wppb01_Activator::activate();
+    $activator = new Webtutor_wppb01_Activator();
+    $activator->activate();
 }
 
 /**
@@ -52,7 +54,9 @@ function activate_webtutor_wppb01() {
  */
 function deactivate_webtutor_wppb01() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-deactivator.php';
-	Webtutor_wppb01_Deactivator::deactivate();
+	//Webtutor_wppb01_Deactivator::deactivate();
+    $deactivador = new Webtutor_wppb01_Deactivator();
+    $deactivador->deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_webtutor_wppb01' );

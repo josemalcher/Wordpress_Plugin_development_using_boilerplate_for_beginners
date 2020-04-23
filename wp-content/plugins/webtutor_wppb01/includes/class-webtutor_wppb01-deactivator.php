@@ -29,8 +29,15 @@ class Webtutor_wppb01_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
-
+	public function deactivate() {
+        global $wpdb;
+        $wpdb->query("DROP TABLE IF EXISTS " . $this->table_aluno());
 	}
+
+    private function table_aluno()
+    {
+        global $wpdb;
+        return $wpdb->prefix . "alunos";
+    }
 
 }
