@@ -115,6 +115,7 @@ wp-content/languages/*
 wp-content/mu-plugins/
 !wp-content/plugins/wp-next-plugin/*
 !wp-content/plugins/
+!/wp-content/plugins/webtutor_wppb01/*
 !wp-content/themes/
 wp-admin/*
 wp-includes/*

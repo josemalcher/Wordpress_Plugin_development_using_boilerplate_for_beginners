@@ -25,7 +25,9 @@ https://www.youtube.com/playlist?list=PLT9miexWCpPUwGlFk_yIH2cdkDgJDvRBn
 
 ## <a name="parte1">1 - Boilerplate introduction, features..</a>
 
+- https://wppb.me/
 
+- wp-content/plugins/webtutor_wppb01
 
 [Voltar ao Índice](#indice)
 
