@@ -36,6 +36,76 @@ https://www.youtube.com/playlist?list=PLT9miexWCpPUwGlFk_yIH2cdkDgJDvRBn
 
 ## <a name="parte2">2 - About Folder Structure Information</a>
 
+admin
+=============
+Existem três diretórios contidos no diretório admin, ou seja, css,
+js e parciais. Como o próprio nome sugere, todas as funcionalidades voltadas para o administrador devem
+ ser colocado aqui. Por padrão, o plugin-name-admin.js e o plugin-name-admin.css
+ está enfileirado no seu wp-admin. O class-plugin-name-admin.php fornecerá
+ funcionalidade genérica em que você pode definir seus ganchos específicos para administradores.
+
+public
+==============
+Esse diretório é muito parecido com o que o diretório admin precisa
+oferta, a única diferença é que o diretório público deve ser usado para
+armazene toda a sua base de código de funcionalidade voltada para o público.
+
+languages
+==========
+Um arquivo .pot inicial no qual você pode fornecer a funcionalidade de tradução com
+seu plugin.
+
+includes
+=============
+Provavelmente é aqui que praticamente toda a magia acontece. Há cinco
+iniciando classes incluídas por padrão.
+
+LICENSE.txt
+==========
+Uma cópia da licença GPL v2 é incluída por padrão.
+
+README.txt
+============
+Um ponto de partida para o arquivo LEIA-ME do plug-in. Este arquivo abrange todos os
+as seções que você pode preencher para fornecer uma boa página de plug-in
+Repositório de plugins do WordPress.
+
+plugin-name.php
+===============
+O ponto de entrada para o seu plugin. Aqui, um cabeçalho geral do arquivo de plug-in é
+incluído que você pode modificar conforme seu gosto. O registo_activação_hook
+e register_deactivation_hook também são registrados neste arquivo se você alguma vez
+precisa incluir algum tipo de funcionalidade na ativação do plug-in e / ou
+desativação.
+
+Classes incluídas
+Como mencionado anteriormente, há cinco classes padrão fornecidas dentro do
+/ inclui diretório. Vamos ver o que cada um deles faz:
+
+class-plugin-name-activator.php
+=========================================
+Essa classe é instanciada durante a ativação do plug-in. Possui apenas uma estática
+método, enable () que é registrado no register_activation_hook.
+Use esta classe sempre que precisar fazer algo no plugin
+ativação, como criar tabelas personalizadas ou salvar opções padrão.
+
+class-plugin-name-deactivator.php
+===================================
+A contrapartida de class-plugin-name-deactivator.php. Ele também contém apenas
+ um método estático, deactivate (), que pode ser usado para executar qualquer funcionalidade
+ durante a desativação do plug-in.
+
+class-plugin-name.php
+===========================
+A classe que cola todas as peças juntas. Contém informações importantes
+sobre o plug-in, como o nome e a versão do plug-in. Além disso, ele carregará
+ as dependências usando o método load_dependencies () que incluirá
+ todas as quatro classes acima e o domínio de texto do plug-in serão definidos usando
+ método set_locale (). Todos os ganchos administrativos e públicos que eram anteriormente
+ registrado também pode ser definido aqui.
+
+FONTE: https://www.youtube.com/watch?v=osAEmNsIi80
+
 
 
 [Voltar ao Índice](#indice)
