@@ -140,8 +140,8 @@ function deactivate_webtutor_wppb01() {
 }
 ```
 
-- wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-activator.php
-- wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-deactivator.php
+- [includes/class-webtutor_wppb01-activator.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-activator.php)
+- [includes/class-webtutor_wppb01-deactivator.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-deactivator.php)
 
 
 
