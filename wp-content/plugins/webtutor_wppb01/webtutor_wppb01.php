@@ -26,8 +26,8 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
@@ -35,16 +35,20 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WEBTUTOR_WPPB01_VERSION', '1.0.0' );
+define('WEBTUTOR_WPPB01_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-webtutor_wppb01-activator.php
  */
-function activate_webtutor_wppb01() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-activator.php';
-	//Webtutor_wppb01_Activator::activate();
-    $activator = new Webtutor_wppb01_Activator();
+function activate_webtutor_wppb01()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-webtutor_wppb01-tables.php';
+    $tables = new Webtutor_wppb01_Tables();
+
+    require_once plugin_dir_path(__FILE__) . 'includes/class-webtutor_wppb01-activator.php';
+    //Webtutor_wppb01_Activator::activate();
+    $activator = new Webtutor_wppb01_Activator($tables);
     $activator->activate();
 }
 
@@ -52,21 +56,25 @@ function activate_webtutor_wppb01() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-webtutor_wppb01-deactivator.php
  */
-function deactivate_webtutor_wppb01() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01-deactivator.php';
-	//Webtutor_wppb01_Deactivator::deactivate();
-    $deactivador = new Webtutor_wppb01_Deactivator();
+function deactivate_webtutor_wppb01()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-webtutor_wppb01-tables.php';
+    $tables = new Webtutor_wppb01_Tables();
+
+    require_once plugin_dir_path(__FILE__) . 'includes/class-webtutor_wppb01-deactivator.php';
+    //Webtutor_wppb01_Deactivator::deactivate();
+    $deactivador = new Webtutor_wppb01_Deactivator($tables);
     $deactivador->deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_webtutor_wppb01' );
-register_deactivation_hook( __FILE__, 'deactivate_webtutor_wppb01' );
+register_activation_hook(__FILE__, 'activate_webtutor_wppb01');
+register_deactivation_hook(__FILE__, 'deactivate_webtutor_wppb01');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01.php';
+require plugin_dir_path(__FILE__) . 'includes/class-webtutor_wppb01.php';
 
 /**
  * Begins execution of the plugin.
@@ -77,10 +85,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-webtutor_wppb01.php';
  *
  * @since    1.0.0
  */
-function run_webtutor_wppb01() {
+function run_webtutor_wppb01()
+{
 
-	$plugin = new Webtutor_wppb01();
-	$plugin->run();
+    $plugin = new Webtutor_wppb01();
+    $plugin->run();
 
 }
+
 run_webtutor_wppb01();

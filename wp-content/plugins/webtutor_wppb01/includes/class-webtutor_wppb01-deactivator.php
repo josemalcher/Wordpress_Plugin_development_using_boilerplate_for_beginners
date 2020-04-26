@@ -20,24 +20,29 @@
  * @subpackage Webtutor_wppb01/includes
  * @author     José Malcher Jr <contato@josemalcher.net>
  */
-class Webtutor_wppb01_Deactivator {
+class Webtutor_wppb01_Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public function deactivate() {
-        global $wpdb;
-        $wpdb->query("DROP TABLE IF EXISTS " . $this->table_aluno());
-	}
+    private $table;
 
-    private function table_aluno()
+    /**
+     * Webtutor_wppb01_Activator constructor.
+     */
+    public function __construct($tables_obj)
     {
-        global $wpdb;
-        return $wpdb->prefix . "alunos";
+        $this->table = $tables_obj;
     }
 
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public function deactivate()
+    {
+        global $wpdb;
+        $wpdb->query("DROP TABLE IF EXISTS " . $this->table->wppb01_Table_alinos());
+    }
 }

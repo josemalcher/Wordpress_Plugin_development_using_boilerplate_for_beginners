@@ -22,6 +22,15 @@
  */
 class Webtutor_wppb01_Activator
 {
+    private $table;
+    /**
+     * Webtutor_wppb01_Activator constructor.
+     */
+    public function __construct($tables_obj)
+    {
+        $this->table = $tables_obj;
+    }
+
 
     /**
      * Short Description. (use period)
@@ -34,9 +43,9 @@ class Webtutor_wppb01_Activator
     {
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         global $wpdb;
-        $table_total = $wpdb->get_var("SHOW TABLES LIKE '" . $this->table_alunos() . "'");
+        $table_total = $wpdb->get_var("SHOW TABLES LIKE '" . $this->table->wppb01_Table_alinos() . "'");
         if (empty($table_total)) {
-            $sqlQuery = "CREATE TABLE `".$this->table_alunos()."`
+            $sqlQuery = "CREATE TABLE `".$this->table->wppb01_Table_alinos() ."`
                             (
                                 `id` int NOT NULL AUTO_INCREMENT,
                                 `nome` varchar(200) null,
@@ -46,13 +55,6 @@ class Webtutor_wppb01_Activator
                             )";
             dbDelta($sqlQuery);
         }
-    }
-
-    protected function table_alunos()
-    {
-        global $wpdb;
-
-        return $wpdb->prefix . "alunos";
     }
 
 }
