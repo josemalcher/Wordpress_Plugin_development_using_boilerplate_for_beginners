@@ -70,6 +70,47 @@ function deactivate_webtutor_wppb01()
 register_activation_hook(__FILE__, 'activate_webtutor_wppb01');
 register_deactivation_hook(__FILE__, 'deactivate_webtutor_wppb01');
 
+
+
+function menus_administrador()
+{
+    /*
+     *
+     * add_menu_page( string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', string $icon_url = '', int $position = null )
+     * */
+    add_menu_page(
+        'Custom Menu Page Title',
+        'Custom Menu Page',
+        'manage_options',
+        'menu-admin',
+        'func_menu_admin',
+        'dashicons-welcome-widgets-menus',
+        90 );
+    add_submenu_page(
+        'menu-admin',
+        'My Custom Page',
+        'My Custom Page',
+        'manage_options',
+        'menu-admin',
+    "func_menu_admin");
+    add_submenu_page(
+        'menu-admin',
+        'My Custom Submenu Page',
+        'My Custom Submenu Page',
+        'manage_options',
+        'my-secondary-slug',
+        "func_menu_2");
+}
+add_action( 'admin_menu', 'menus_administrador' );
+
+function func_menu_admin(){
+    return "page 1";
+}
+function func_menu_2(){
+    return "page 2";
+}
+
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

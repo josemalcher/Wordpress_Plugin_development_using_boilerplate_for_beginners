@@ -152,7 +152,41 @@ function deactivate_webtutor_wppb01() {
 
 ## <a name="parte4">4 - Menus & Submenus by using Root File</a>
 
+- [wp-content/plugins/webtutor_wppb01/webtutor_wppb01.php](wp-content/plugins/webtutor_wppb01/webtutor_wppb01.php)
 
+```php
+function menus_administrador()
+{
+    /*
+     *
+     * add_menu_page( string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', string $icon_url = '', int $position = null )
+     * */
+    add_menu_page(
+        'Custom Menu Page Title',
+        'Custom Menu Page',
+        'manage_options',
+        'menu-admin',
+        'func_menu_admin',
+        'dashicons-welcome-widgets-menus',
+        90 );
+    add_submenu_page(
+        'menu-admin',
+        'My Custom Page',
+        'My Custom Page',
+        'manage_options',
+        'menu-admin',
+    "func_menu_admin");
+    add_submenu_page(
+        'menu-admin',
+        'My Custom Submenu Page',
+        'My Custom Submenu Page',
+        'manage_options',
+        'my-secondary-slug',
+        "func_menu_2");
+}
+add_action( 'admin_menu', 'menus_administrador' );
+
+```
 
 [Voltar ao Índice](#indice)
 
