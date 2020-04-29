@@ -195,6 +195,82 @@ add_action( 'admin_menu', 'menus_administrador' );
 
 ## <a name="parte5">5 - Callback functions of menus,submenus</a>
 
+- [wp-content/plugins/webtutor_wppb01/webtutor_wppb01.php](wp-content/plugins/webtutor_wppb01/webtutor_wppb01.php)
+
+```php
+
+if(!defined("CUSTOM_BOILER_PLUGIN_DIR")){
+    define("CUSTOM_BOILER_PLUGIN_DIR", plugin_dir_path(__FILE__));
+}
+if(!defined("CUSTOM_BOILER_PLUGIN_URL")){
+    define("CUSTOM_BOILER_PLUGIN_URL", plugins_url()."/webtutor_wppb01");
+}
+```
+
+- [wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php](wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php)
+
+- wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php
+- wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-add.php
+
+```php
+
+    public function menus_administrador()
+    {
+        /*
+         *
+         * add_menu_page( string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', string $icon_url = '', int $position = null )
+         * */
+        add_menu_page(
+            'Custom Menu Page Title',
+            'Custom Menu Page',
+            'manage_options',
+            'menu-admin',
+            array($this, "func_menu_admin"),
+            'dashicons-welcome-widgets-menus',
+            90);
+        add_submenu_page(
+            'menu-admin',
+            'My Custom Page',
+            'My Custom Page',
+            'manage_options',
+            'menu-admin',
+            array($this, "func_menu_admin"));
+        add_submenu_page(
+            'menu-admin',
+            'My Custom Submenu Page',
+            'My Custom Submenu Page',
+            'manage_options',
+            'my-secondary-slug',
+            array($this, "func_menu_2"));
+    }
+    //add_action( 'admin_menu', 'menus_administrador' ); -> define_admin_hooks() 
+
+
+
+    public function func_menu_admin(){
+        include_once CUSTOM_BOILER_PLUGIN_DIR. "/admin/partials/webtutor_wppb01-admin-list.php";
+    }
+    public function func_menu_2(){
+        include_once  CUSTOM_BOILER_PLUGIN_DIR. "/admin/partials/webtutor_wppb01-admin-add.php";
+    }
+```
+
+- [wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01.php)
+
+```php
+private function define_admin_hooks() {
+
+		$plugin_admin = new Webtutor_wppb01_Admin( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		//menu custom action
+        $this->loader->add_action( 'admin_menu',$plugin_admin, 'menus_administrador' );
+	}
+
+```
+
 
 
 [Voltar ao Índice](#indice)
