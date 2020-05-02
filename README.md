@@ -280,7 +280,28 @@ private function define_admin_hooks() {
 
 ## <a name="parte6">6 - Assets file linking to plugin</a>
 
+- [wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php](wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php)
 
+```php
+public function enqueue_styles()
+    {
+        //wp_enqueue_style("bootstrap.min.css", plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all');
+        wp_enqueue_style("jquery.dataTables.min.css", plugin_dir_url(__FILE__) . 'css/jquery.dataTables.min.css', array(), $this->version, 'all');
+        wp_enqueue_style("jquery.notifyBar.css", plugin_dir_url(__FILE__) . 'css/jquery.notifyBar.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/webtutor_wppb01-admin.css', array(), $this->version, 'all');
+
+    }
+
+    public function enqueue_scripts()
+    {
+        wp_enqueue_script("bootstrap.min.js", plugin_dir_url(__FILE__) . 'js/bootstrap.min.js', array('jquery'), $this->version, false);//
+        wp_enqueue_script("jquery.dataTables.min.js", plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script("jquery.notifyBar.js", plugin_dir_url(__FILE__) . 'js/jquery.notifyBar.js', array('jquery'), $this->version, false);
+        wp_enqueue_script("jquery.validate.min.js", plugin_dir_url(__FILE__) . 'js/jquery.validate.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
+
+    }
+```
 
 [Voltar ao Índice](#indice)
 
