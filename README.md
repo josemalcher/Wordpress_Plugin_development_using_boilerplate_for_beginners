@@ -310,7 +310,33 @@ public function enqueue_styles()
 
 ## <a name="parte7">7 - Layout Settings of pages of plugin</a>
 
+- [wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php](wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php)
+- [wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-add.php](wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-add.php)
 
+
+- [wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js](wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js)
+
+```js
+(function( $ ) {
+	'use strict';
+
+	$(document).ready(function() {
+		$('#example').DataTable();
+		$('#frmAddPlayList').validate({
+			submitHandler:function () {
+
+			}
+		});
+	} );
+
+
+
+})( jQuery );
+
+
+
+
+```
 
 [Voltar ao Índice](#indice)
 
