@@ -31,11 +31,34 @@
 
 	$(document).ready(function() {
 		$('#example').DataTable();
+
 		$('#frmAddPlayList').validate({
 			submitHandler:function () {
 
 			}
 		});
+
+
+		$('#media_photo').on("click", function () {
+			var image = wp.media({
+				title: "Upload Image for Modelo",
+				multiple: false
+				//multiple: true
+			}).open().on("select", function () {
+				var files = image.state().get("selection").first();// uma imagem
+				//var files = image.state().get("selection");
+				var jsonFiles = files.toJSON();
+				//console.log(jsonFiles);
+				/*
+				$.each(jsonFiles, function (index, item) {
+					console.log(item.title);
+				});
+				*/
+				$("#media-img").attr("src", jsonFiles.url);
+				$("#image-url").val(jsonFiles.url);
+			});
+		});
+
 	} );
 
 

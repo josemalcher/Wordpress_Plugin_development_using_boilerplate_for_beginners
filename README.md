@@ -345,7 +345,49 @@ public function enqueue_styles()
 
 ## <a name="parte8">8 - Media Image Upload in Plugin</a>
 
+- [wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-add.php](wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-add.php)
 
+```php
+<?php
+
+wp_enqueue_media();
+
+?>
+<div class="form-group">
+    <label class="control-label col-sm-2">Photo</label>
+    <div class="col-sm-10">
+        <!--<input type="file" class="form-control" id="photo" required name="photo" placeholder="Enter Photo">-->
+        <button class="btn btn-info" id="media_photo">Add Photo</button>
+        <span><img src="" alt="" id="media-img" style="height: 100px; width: 100px"></span>
+        <input type="hidden" id="image-url" name="image-url">
+    </div>
+</div>
+```
+
+- [wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js](wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js)
+
+```js
+
+		$('#media_photo').on("click", function () {
+			var image = wp.media({
+				title: "Upload Image for Modelo",
+				multiple: false
+				//multiple: true
+			}).open().on("select", function () {
+				var files = image.state().get("selection").first();// uma imagem
+				//var files = image.state().get("selection");
+				var jsonFiles = files.toJSON();
+				//console.log(jsonFiles);
+				/*
+				$.each(jsonFiles, function (index, item) {
+					console.log(item.title);
+				});
+				*/
+				$("#media-img").attr("src", jsonFiles.url);
+				$("#image-url").val(jsonFiles.url);
+			});
+		});
+```
 
 [Voltar ao Índice](#indice)
 

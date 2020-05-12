@@ -13,6 +13,9 @@
  */
 
 wp_enqueue_style("bootstrap.min.css", plugin_dir_url(__FILE__) . '../css/bootstrap.min.css', array(), $this->version, 'all');
+
+wp_enqueue_media();
+
 ?>
 <div class="container">
     <div class="row">
@@ -42,9 +45,12 @@ wp_enqueue_style("bootstrap.min.css", plugin_dir_url(__FILE__) . '../css/bootstr
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Photo</label>
+                        <label class="control-label col-sm-2">Photo</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control" id="photo" required name="photo" placeholder="Enter Photo">
+                            <!--<input type="file" class="form-control" id="photo" required name="photo" placeholder="Enter Photo">-->
+                            <button class="btn btn-info" id="media_photo">Add Photo</button>
+                            <span><img src="" alt="" id="media-img" style="height: 100px; width: 100px"></span>
+                            <input type="hidden" id="image-url" name="image-url">
                         </div>
                     </div>
                     <div class="form-group">
