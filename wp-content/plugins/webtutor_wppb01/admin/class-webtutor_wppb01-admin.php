@@ -40,7 +40,7 @@ class Webtutor_wppb01_Admin
      * @var      string $version The current version of this plugin.
      */
     private $version;
-
+    private $tables;
     /**
      * Initialize the class and set its properties.
      *
@@ -53,6 +53,9 @@ class Webtutor_wppb01_Admin
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+
+        require_once CUSTOM_BOILER_PLUGIN_DIR.'/includes/class-webtutor_wppb01-tables.php';
+        $this->tables = new Webtutor_wppb01_Tables();
 
     }
 
@@ -107,8 +110,54 @@ class Webtutor_wppb01_Admin
         wp_enqueue_script("jquery.dataTables.min.js", plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script("jquery.notifyBar.js", plugin_dir_url(__FILE__) . 'js/jquery.notifyBar.js', array('jquery'), $this->version, false);
         wp_enqueue_script("jquery.validate.min.js", plugin_dir_url(__FILE__) . 'js/jquery.validate.min.js', array('jquery'), $this->version, false);
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
+        //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script("webtutor_wppb01-admin.js", plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
 
+        //wp_localize_script($this->plugin_name, "custom_ajax_url", admin_url("admin-ajax.php"));
+        wp_localize_script("webtutor_wppb01-admin.js", "custom_ajax_url", admin_url("admin-ajax.php"));
+
+    }
+
+    public function custom_ajax_handle_form()
+    {
+        global $wpdb;
+        $param = isset($_REQUEST["param"]) ? $_REQUEST["param"] : "";
+        if ($param == "save_user" && !empty($param)) {
+            //print_r($_REQUEST);
+            /*
+             Array
+                (
+                    [name] => teste
+                    [email] => teste@teste.com
+                    [telefone] => teste
+                    [image-url] => http://localhost/wp-content/uploads/2020/05/scandroid-synthwave.jpg
+                    [action] => custom_request
+                    [param] => save_user
+                )
+             * */
+
+            $name =      isset($_REQUEST['name']) ? $_REQUEST['name'] : "";
+            $email =     isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
+            $telefone =  isset($_REQUEST['telefone']) ? $_REQUEST['telefone'] : "";
+            $image_url = isset($_REQUEST['image-url']) ? $_REQUEST['image-url'] : "";
+
+            $wpdb->insert($this->tables->wppb01_Table_alinos(), array(
+                "nome" => $name,
+                "email" => $email,
+                "telefone" => $telefone,
+                "image_url" => $image_url,
+            ));
+            if ($wpdb->insert_id > 0) {
+                echo "Valor inserido com sucesso";
+            } else {
+                echo "FALHA AO SALVAR SQL";
+            }
+
+
+            //$this->tables->wppb01_Table_alinos();
+
+        }
+        wp_die();
     }
 
     public function menus_administrador()
@@ -140,15 +189,18 @@ class Webtutor_wppb01_Admin
             'my-secondary-slug',
             array($this, "func_menu_2"));
     }
+
     //add_action( 'admin_menu', 'menus_administrador' );
 
 
-
-    public function func_menu_admin(){
-        include_once CUSTOM_BOILER_PLUGIN_DIR. "/admin/partials/webtutor_wppb01-admin-list.php";
+    public function func_menu_admin()
+    {
+        include_once CUSTOM_BOILER_PLUGIN_DIR . "/admin/partials/webtutor_wppb01-admin-list.php";
     }
-    public function func_menu_2(){
-        include_once  CUSTOM_BOILER_PLUGIN_DIR. "/admin/partials/webtutor_wppb01-admin-add.php";
+
+    public function func_menu_2()
+    {
+        include_once CUSTOM_BOILER_PLUGIN_DIR . "/admin/partials/webtutor_wppb01-admin-add.php";
     }
 
 

@@ -396,7 +396,78 @@ wp_enqueue_media();
 
 ## <a name="parte9">9 - Process AJAX REQUEST using wp_ajax</a>
 
+- [wp-content\plugins\webtutor_wppb01\includes\class-webtutor_wppb01.php](wp-content\plugins\webtutor_wppb01\includes\class-webtutor_wppb01.php)
 
+```php
+private function define_admin_hooks() {
+
+// (...)
+
+        // ajax request handle
+        $this->loader->add_action("wp_ajax_custom_request",$plugin_admin, 'custom_ajax_handle_form' );
+}
+```
+
+- [wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php](wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php)
+
+```php
+
+    public function custom_ajax_handle_form()
+    {
+        global $wpdb;
+        $param = isset($_REQUEST["param"]) ? $_REQUEST["param"] : "";
+        if ($param == "save_user" && !empty($param)) {
+            //print_r($_REQUEST);
+            /*
+             Array
+                (
+                    [name] => teste
+                    [email] => teste@teste.com
+                    [telefone] => teste
+                    [image-url] => http://localhost/wp-content/uploads/2020/05/scandroid-synthwave.jpg
+                    [action] => custom_request
+                    [param] => save_user
+                )
+             * */
+
+            $name =      isset($_REQUEST['name']) ? $_REQUEST['name'] : "";
+            $email =     isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
+            $telefone =  isset($_REQUEST['telefone']) ? $_REQUEST['telefone'] : "";
+            $image_url = isset($_REQUEST['image-url']) ? $_REQUEST['image-url'] : "";
+
+            $wpdb->insert($this->tables->wppb01_Table_alinos(), array(
+                "nome" => $name,
+                "email" => $email,
+                "telefone" => $telefone,
+                "image_url" => $image_url,
+            ));
+            if ($wpdb->insert_id > 0) {
+                echo "Valor inserido com sucesso";
+            } else {
+                echo "FALHA AO SALVAR SQL";
+            }
+
+
+            //$this->tables->wppb01_Table_alinos();
+
+        }
+        wp_die();
+    }
+```
+- [wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js](wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js)
+
+```js
+$('#frmAddPlayList').validate({
+            submitHandler: function () {
+                let post_data = $("#frmAddPlayList").serialize() + "&action=custom_request&param=save_user";
+                //console.log(post_data);
+                $.post(custom_ajax_url, post_data, function (response) {
+                    console.log(response);
+
+                });
+            }
+        });
+```
 
 [Voltar ao Índice](#indice)
 

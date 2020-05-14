@@ -159,6 +159,9 @@ class Webtutor_wppb01 {
 
 		//menu custom action
         $this->loader->add_action( 'admin_menu',$plugin_admin, 'menus_administrador' );
+
+        // ajax request handle
+        $this->loader->add_action("wp_ajax_custom_request",$plugin_admin, 'custom_ajax_handle_form' );
 	}
 
 	/**
