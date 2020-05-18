@@ -178,9 +178,18 @@ class Webtutor_wppb01_Admin
                 $wpdb->delete($this->tables->wppb01_Table_alinos(), array(
                     "id" => $data_id,
                 ));
+
+                // START
+                ob_start();
+                include_once CUSTOM_BOILER_PLUGIN_DIR."/admin/partials/tmpl/list_user.php";
+                $template = ob_get_contents();
+                //END
+                ob_end_clean();
+
                 echo json_encode(array(
                     "status" => 1,
-                    "message" => "Dados Deletado com Sucesso"
+                    "message" => "Dados Deletado com Sucesso",
+                    "template" => $template
                 ));
             } else {
                 echo json_encode(

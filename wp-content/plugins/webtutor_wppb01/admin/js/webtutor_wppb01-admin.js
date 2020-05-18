@@ -95,6 +95,9 @@
                             location.reload();
                         }, 2000);
 
+                        //$("#table-users").html(data.template); // no curso é dado assim! Preferir manter
+                        //location.reload();
+
                     } else {
                         swal(data.message, "Entre em Contato com Suporte", "error");
                     }

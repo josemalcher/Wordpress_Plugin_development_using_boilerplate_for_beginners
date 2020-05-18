@@ -561,6 +561,8 @@ $(".cdelete").on("click", function () {
 
 ## <a name="parte12">12 - How to use PHP Buffers</a>
 
+- [wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php](wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php)
+
 ```html
  <tbody id="table-users">
     <?php
@@ -576,10 +578,98 @@ $(".cdelete").on("click", function () {
     echo $template;
     ?>
 </tbody>
-
 ```
 
-``````
+- [wp-content/plugins/webtutor_wppb01/admin/partials/tmpl/list_user.php](wp-content/plugins/webtutor_wppb01/admin/partials/tmpl/list_user.php)
+
+```php
+<?php
+global $wpdb;
+$all_users = $wpdb->get_results(
+    $wpdb->prepare(
+        "SELECT * FROM " . $this->tables->wppb01_Table_alinos() . " ORDER BY %s DESC",
+        "id"), ARRAY_A
+);
+if (count($all_users) > 0) {
+    foreach ($all_users as $index => $data) {
+        ?>
+        <tr>
+            <td><?= $data['id']; ?></td>
+            <td><?= $data['nome']; ?></td>
+            <td><?= $data['email']; ?></td>
+            <td><?= $data['telefone']; ?></td>
+            <td><img src="<?= $data['image_url']; ?>" alt="" style="width: 150px; height: 100px"></td>
+            <td>
+                <a href="javascript:void(0)" class="btn btn-info"><i
+                        class="dashicons-before dashicons-edit"></i></a>
+                <a href="javascript:void(0)"
+                   class="btn btn-danger cdelete" data-id="
+                                            <?= $data['id']; ?>"><i class="dashicons-before dashicons-trash"></i></a>
+
+            </td>
+        </tr>
+        <?php
+    }
+} else {
+    echo "<h4>Não há dados</h4>";
+}
+?>
+```
+
+
+- [wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php](wp-content/plugins/webtutor_wppb01/admin/class-webtutor_wppb01-admin.php)
+
+```php
+if (!empty($is_exists)) {
+                $wpdb->delete($this->tables->wppb01_Table_alinos(), array(
+                    "id" => $data_id,
+                ));
+
+                // START
+                ob_start();
+                include_once CUSTOM_BOILER_PLUGIN_DIR."/admin/partials/tmpl/list_user.php";
+                $template = ob_get_contents();
+                //END
+                ob_end_clean();
+
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Dados Deletado com Sucesso",
+                    "template" => $template
+                ));
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "message" => "Erro ao salvar, contate o SUPORTE"
+                    )
+                );
+            }
+```
+
+- [wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js](wp-content/plugins/webtutor_wppb01/admin/js/webtutor_wppb01-admin.js)
+
+```js
+$.post(custom_ajax_url, post_data, function (response) {
+                    var data = $.parseJSON(response);
+                    //data.status
+                    //data.message
+                    if (data.status == 1) {
+                        swal(data.message, "", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
+                        //$("#table-users").html(data.template); // no curso é dado assim! Preferir manter
+                        //location.reload();
+
+                    } else {
+                        swal(data.message, "Entre em Contato com Suporte", "error");
+                    }
+                    //location.reload();
+                });
+```
+
 
 
 [Voltar ao Índice](#indice)

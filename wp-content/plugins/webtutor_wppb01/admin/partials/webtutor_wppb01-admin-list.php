@@ -13,12 +13,7 @@
  */
 
 wp_enqueue_style("bootstrap.min.css", plugin_dir_url(__FILE__) . '../css/bootstrap.min.css', array(), $this->version, 'all');
-global $wpdb;
-$all_users = $wpdb->get_results(
-    $wpdb->prepare(
-        "SELECT * FROM " . $this->tables->wppb01_Table_alinos() . " ORDER BY %s DESC",
-        "id"), ARRAY_A
-);
+
 
 ?>
 <div class="container">
@@ -42,34 +37,19 @@ $all_users = $wpdb->get_results(
                     <th>Ações</th>
                 </tr>
                 </thead>
-                <tbody>
-                <?php
-                if (count($all_users) > 0) {
-                    foreach ($all_users as $indes => $data) {
-                        ?>
-                        <tr>
-                            <td><?= $data['id']; ?></td>
-                            <td><?= $data['nome']; ?></td>
-                            <td><?= $data['email']; ?></td>
-                            <td><?= $data['telefone']; ?></td>
-                            <td><img src="<?= $data['image_url']; ?>" alt="" style="width: 150px; height: 100px"></td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-info"><i
-                                            class="dashicons-before dashicons-edit"></i></a>
-                                <a href="javascript:void(0)"
-                                            class="btn btn-danger cdelete" data-id="
-                                            <?= $data['id']; ?>"><i class="dashicons-before dashicons-trash"></i></a>
+                <tbody id="table-users">
+                    <?php
+                    ob_start(); // start the buffer
+                    include_once CUSTOM_BOILER_PLUGIN_DIR."/admin/partials/tmpl/list_user.php";
 
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                } else {
-                    echo "<h3>Não há dados</h3>";
-                }
-                ?>
+                    // read buffer
+                    $template = ob_get_contents();
 
+                    //closer the buffer
+                    ob_end_clean();
 
+                    echo $template;
+                    ?>
                 </tbody>
                 <tfoot>
                 <tr>
