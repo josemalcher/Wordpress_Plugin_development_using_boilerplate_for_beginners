@@ -48,9 +48,9 @@ wp_enqueue_media();
                         <label class="control-label col-sm-2">Photo</label>
                         <div class="col-sm-10">
                             <!--<input type="file" class="form-control" id="photo" required name="photo" placeholder="Enter Photo">-->
-                            <button class="btn btn-info" id="media_photo">Add Photo</button>
-                            <span><img src="" alt="" id="media-img" style="height: 100px; width: 100px"></span>
-                            <input type="hidden" id="image-url" name="image-url">
+                            <a class="btn btn-info" id="media_photo">Add Photo</a>
+                            <span><img src="" alt="" id="media-img" style="height: 100px; width: 100px" ></span>
+                            <input type="hidden" id="image-url" name="image-url" required>
                         </div>
                     </div>
                     <div class="form-group">

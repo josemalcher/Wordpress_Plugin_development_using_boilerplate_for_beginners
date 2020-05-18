@@ -37,8 +37,19 @@
                 let post_data = $("#frmAddPlayList").serialize() + "&action=custom_request&param=save_user";
                 //console.log(post_data);
                 $.post(custom_ajax_url, post_data, function (response) {
-                    console.log(response);
+                    var data = $.parseJSON(response);
+                    //data.status
+                    //data.message
+                    if (data.status == 1) {
+                        swal(data.message, "", "success");
+                          setTimeout(function () {
+                              location.reload();
+                          }, 2000);
 
+                    } else {
+                        swal(data.message, "Entre em Contato com Suporte", "error");
+                    }
+                    //location.reload();
                 });
             }
         });
@@ -66,7 +77,5 @@
 
     });
 
-
 })(jQuery);
-
 

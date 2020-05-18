@@ -110,8 +110,9 @@ class Webtutor_wppb01_Admin
         wp_enqueue_script("jquery.dataTables.min.js", plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script("jquery.notifyBar.js", plugin_dir_url(__FILE__) . 'js/jquery.notifyBar.js', array('jquery'), $this->version, false);
         wp_enqueue_script("jquery.validate.min.js", plugin_dir_url(__FILE__) . 'js/jquery.validate.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script("sweetalert.min.js", plugin_dir_url(__FILE__) . 'js/sweetalert.min.js', array('jquery'), $this->version, false);
         //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
-        wp_enqueue_script("webtutor_wppb01-admin.js", plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script("webtutor_wppb01-admin.js", plugin_dir_url(__FILE__) . 'js/webtutor_wppb01-admin.js', array('jquery'), $this->version, true);
 
         //wp_localize_script($this->plugin_name, "custom_ajax_url", admin_url("admin-ajax.php"));
         wp_localize_script("webtutor_wppb01-admin.js", "custom_ajax_url", admin_url("admin-ajax.php"));
@@ -148,9 +149,17 @@ class Webtutor_wppb01_Admin
                 "image_url" => $image_url,
             ));
             if ($wpdb->insert_id > 0) {
-                echo "Valor inserido com sucesso";
+                //echo "Valor inserido com sucesso";
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Dados Salvos com Sucesso"
+                ));
             } else {
-                echo "FALHA AO SALVAR SQL";
+                //echo "FALHA AO SALVAR SQL";
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "Erro ao Salvar"
+                ));
             }
 
 
