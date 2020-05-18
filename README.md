@@ -561,6 +561,25 @@ $(".cdelete").on("click", function () {
 
 ## <a name="parte12">12 - How to use PHP Buffers</a>
 
+```html
+ <tbody id="table-users">
+    <?php
+    ob_start(); // start the buffer
+    include_once CUSTOM_BOILER_PLUGIN_DIR."/admin/partials/tmpl/list_user.php";
+
+    // read buffer
+    $template = ob_get_contents();
+
+    //closer the buffer
+    ob_end_clean();
+
+    echo $template;
+    ?>
+</tbody>
+
+```
+
+``````
 
 
 [Voltar ao Índice](#indice)
