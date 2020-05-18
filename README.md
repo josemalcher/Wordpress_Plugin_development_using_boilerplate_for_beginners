@@ -476,7 +476,16 @@ $('#frmAddPlayList').validate({
 
 ## <a name="parte10">10 - Render Plugin data to page | show</a>
 
+- [wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php](wp-content/plugins/webtutor_wppb01/admin/partials/webtutor_wppb01-admin-list.php)
 
+```php
+global $wpdb;
+$all_users = $wpdb->get_results(
+    $wpdb->prepare(
+        "SELECT * FROM " . $this->tables->wppb01_Table_alinos() . " ORDER BY %s DESC",
+        "id"), ARRAY_A
+);
+```
 
 [Voltar ao Índice](#indice)
 

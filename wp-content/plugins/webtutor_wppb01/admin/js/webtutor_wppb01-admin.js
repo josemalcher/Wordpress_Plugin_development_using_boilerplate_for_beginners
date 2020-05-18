@@ -30,7 +30,11 @@
      */
 
     $(document).ready(function () {
-        $('#example').DataTable();
+        //
+        let table = $('#example').DataTable();
+        table.columns('.column-id').order('desc').draw();
+        //console.log("DATA TABLE HERE!");
+
 
         $('#frmAddPlayList').validate({
             submitHandler: function () {
