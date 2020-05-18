@@ -494,7 +494,65 @@ $all_users = $wpdb->get_results(
 
 ## <a name="parte11">11 - Delete Plugin Table Data</a>
 
+```html
+    <a href="javascript:void(0)" 
+        class="btn btn-danger cdelete" data-id="<?= $data['id']; ?>">
+    <i class="dashicons-before dashicons-trash"></i></a>
+```
 
+```js
+$(".cdelete").on("click", function () {
+            let data_id = $(this).attr("data-id");
+            //console.log(data_id);
+            let post_data = "action=custom_request&param=delete_user&id="+ data_id;
+            var conf = confirm("Tem certeza que quer apagar?");
+            if (conf) {
+                $.post(custom_ajax_url, post_data, function (response) {
+                    var data = $.parseJSON(response);
+                    //data.status
+                    //data.message
+                    if (data.status == 1) {
+                        swal(data.message, "", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
+                    } else {
+                        swal(data.message, "Entre em Contato com Suporte", "error");
+                    }
+                    //location.reload();
+                });
+            }
+        })
+```
+
+```php
+ elseif ($param == "delete_user" && !empty($param)) {
+            $data_id = isset($_REQUEST['id']) ? intval($_REQUEST[id]) : 0;
+            $is_exists = $wpdb->get_row(
+                $wpdb->prepare(
+                    "SELECT * FROM " . $this->tables->wppb01_Table_alinos() . " WHERE id = %d",
+                    $data_id
+                ), ARRAY_A
+            );
+            if (!empty($is_exists)) {
+                $wpdb->delete($this->tables->wppb01_Table_alinos(), array(
+                    "id" => $data_id,
+                ));
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Dados Deletado com Sucesso"
+                ));
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "message" => "Erro ao salvar, contate o SUPORTE"
+                    )
+                );
+            }
+        }
+```
 
 [Voltar ao Índice](#indice)
 

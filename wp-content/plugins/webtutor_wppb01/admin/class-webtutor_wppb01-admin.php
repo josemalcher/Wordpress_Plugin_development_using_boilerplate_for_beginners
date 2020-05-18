@@ -41,6 +41,7 @@ class Webtutor_wppb01_Admin
      */
     private $version;
     private $tables;
+
     /**
      * Initialize the class and set its properties.
      *
@@ -54,7 +55,7 @@ class Webtutor_wppb01_Admin
         $this->plugin_name = $plugin_name;
         $this->version = $version;
 
-        require_once CUSTOM_BOILER_PLUGIN_DIR.'/includes/class-webtutor_wppb01-tables.php';
+        require_once CUSTOM_BOILER_PLUGIN_DIR . '/includes/class-webtutor_wppb01-tables.php';
         $this->tables = new Webtutor_wppb01_Tables();
 
     }
@@ -137,9 +138,9 @@ class Webtutor_wppb01_Admin
                 )
              * */
 
-            $name =      isset($_REQUEST['name']) ? $_REQUEST['name'] : "";
-            $email =     isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
-            $telefone =  isset($_REQUEST['telefone']) ? $_REQUEST['telefone'] : "";
+            $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : "";
+            $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
+            $telefone = isset($_REQUEST['telefone']) ? $_REQUEST['telefone'] : "";
             $image_url = isset($_REQUEST['image-url']) ? $_REQUEST['image-url'] : "";
 
             $wpdb->insert($this->tables->wppb01_Table_alinos(), array(
@@ -165,6 +166,30 @@ class Webtutor_wppb01_Admin
 
             //$this->tables->wppb01_Table_alinos();
 
+        } elseif ($param == "delete_user" && !empty($param)) {
+            $data_id = isset($_REQUEST['id']) ? intval($_REQUEST[id]) : 0;
+            $is_exists = $wpdb->get_row(
+                $wpdb->prepare(
+                    "SELECT * FROM " . $this->tables->wppb01_Table_alinos() . " WHERE id = %d",
+                    $data_id
+                ), ARRAY_A
+            );
+            if (!empty($is_exists)) {
+                $wpdb->delete($this->tables->wppb01_Table_alinos(), array(
+                    "id" => $data_id,
+                ));
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Dados Deletado com Sucesso"
+                ));
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "message" => "Erro ao salvar, contate o SUPORTE"
+                    )
+                );
+            }
         }
         wp_die();
     }

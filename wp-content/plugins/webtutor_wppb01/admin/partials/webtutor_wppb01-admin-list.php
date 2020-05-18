@@ -56,8 +56,9 @@ $all_users = $wpdb->get_results(
                             <td>
                                 <a href="javascript:void(0)" class="btn btn-info"><i
                                             class="dashicons-before dashicons-edit"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-danger"><i
-                                            class="dashicons-before dashicons-trash"></i></a>
+                                <a href="javascript:void(0)"
+                                            class="btn btn-danger cdelete" data-id="
+                                            <?= $data['id']; ?>"><i class="dashicons-before dashicons-trash"></i></a>
 
                             </td>
                         </tr>

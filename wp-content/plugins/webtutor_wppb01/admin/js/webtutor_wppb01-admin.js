@@ -79,6 +79,30 @@
             });
         });
 
+        $(".cdelete").on("click", function () {
+            let data_id = $(this).attr("data-id");
+            //console.log(data_id);
+            let post_data = "action=custom_request&param=delete_user&id="+ data_id;
+            var conf = confirm("Tem certeza que quer apagar?");
+            if (conf) {
+                $.post(custom_ajax_url, post_data, function (response) {
+                    var data = $.parseJSON(response);
+                    //data.status
+                    //data.message
+                    if (data.status == 1) {
+                        swal(data.message, "", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
+                    } else {
+                        swal(data.message, "Entre em Contato com Suporte", "error");
+                    }
+                    //location.reload();
+                });
+            }
+        })
+
     });
 
 })(jQuery);
