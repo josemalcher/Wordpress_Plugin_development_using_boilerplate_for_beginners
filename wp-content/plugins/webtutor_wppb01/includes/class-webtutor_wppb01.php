@@ -178,6 +178,9 @@ class Webtutor_wppb01 {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_filter("page_template", $plugin_public, "gerador_page_template");
+
+		add_shortcode("teste_shortcode", array($plugin_public, "front_end_teste_page_01"));
 	}
 
 	/**

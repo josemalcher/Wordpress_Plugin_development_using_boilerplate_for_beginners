@@ -742,6 +742,43 @@ $.post(custom_ajax_url, post_data, function (response) {
 
 ## <a name="parte14">14 - Assign template to Dynamic page</a>
 
+- [wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01.php)
+
+```php
+    private function define_public_hooks() {
+
+	    // (...)
+
+
+		$this->loader->add_filter("page_template", $plugin_public, "gerador_page_template");
+
+		add_shortcode("teste_shortcode", array($plugin_public, "front_end_teste_page_01"));
+	}
+```
+
+- [wp-content/plugins/webtutor_wppb01/public/class-webtutor_wppb01-public.php](wp-content/plugins/webtutor_wppb01/public/class-webtutor_wppb01-public.php)
+
+```php
+
+    public function gerador_page_template()
+    {
+        global $post;
+        $post_slug = $post->post_name;
+        if ($post_slug == "teste-page-01") {
+            $page_template = CUSTOM_BOILER_PLUGIN_DIR. "/public/partials/front-end-teste-page-01.php";
+        }
+        return $page_template;
+    }
+
+    public function front_end_teste_page_01()
+    {
+        //echo "Aqui é um SHORT CODE";
+        include_once CUSTOM_BOILER_PLUGIN_DIR. "/public/partials/front-end-teste-page-call-page.php";
+    }
+```
+- [wp-content/plugins/webtutor_wppb01/public/partials/front-end-teste-page-01.php](wp-content/plugins/webtutor_wppb01/public/partials/front-end-teste-page-01.php)
+
+- [wp-content/plugins/webtutor_wppb01/public/partials/front-end-teste-page-call-page.php](wp-content/plugins/webtutor_wppb01/public/partials/front-end-teste-page-call-page.php)
 
 
 [Voltar ao Índice](#indice)
