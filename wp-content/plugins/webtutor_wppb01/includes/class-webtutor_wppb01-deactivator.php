@@ -44,5 +44,17 @@ class Webtutor_wppb01_Deactivator
     {
         global $wpdb;
         $wpdb->query("DROP TABLE IF EXISTS " . $this->table->wppb01_Table_alinos());
+
+        $this->pagina_personalizada_del();
     }
+
+    private function pagina_personalizada_del()
+    {
+        if (!empty(get_option("pagina_personalizada"))) {
+            $page_id = get_option("pagina_personalizada");
+            wp_delete_post($page_id, true);
+            delete_option("pagina_personalizada");
+        }
+    }
+
 }

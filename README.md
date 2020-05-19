@@ -679,7 +679,61 @@ $.post(custom_ajax_url, post_data, function (response) {
 
 ## <a name="parte13">13 - Create dynamic page by plugin</a>
 
+- [wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-activator.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-activator.php)
 
+```php
+    public function activate()
+    {
+        // (...)
+        
+        $this->pagina_personalizada();
+    }
+
+    private function pagina_personalizada()
+    {
+        global $wpdb;
+        $is_slug_exists = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM ". $wpdb->prefix . "posts 
+                        WHERE post_name = %s", "teste-page-01"
+            ), ARRAY_A
+        );
+
+        if (empty($is_slug_exists)) {
+            $page = array();
+            $page['post_title'] = "Teste Page 1";
+            $page['post_content'] = "COnteudo da página <strong>TESTE</strong>";
+            $page['post_status'] = "publish";
+            $page['post_name'] = "teste-page-01";
+            $page['post_type'] = "page";
+            $post_id = wp_insert_post($page);
+            add_option("pagina_personalizada", $post_id);
+        }else{
+
+        }
+
+
+    }
+```
+
+- [wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-deactivator.php](wp-content/plugins/webtutor_wppb01/includes/class-webtutor_wppb01-deactivator.php)
+
+```php
+    public function deactivate()
+    {
+        // (...)
+        $this->pagina_personalizada_del();
+    }
+
+    private function pagina_personalizada_del()
+    {
+        if (!empty(get_option("pagina_personalizada"))) {
+            $page_id = get_option("pagina_personalizada");
+            wp_delete_post($page_id, true);
+            delete_option("pagina_personalizada");
+        }
+    }
+```
 
 [Voltar ao Índice](#indice)
 

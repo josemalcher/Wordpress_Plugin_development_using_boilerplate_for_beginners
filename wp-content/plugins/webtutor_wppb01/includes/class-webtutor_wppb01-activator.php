@@ -55,6 +55,33 @@ class Webtutor_wppb01_Activator
                             )";
             dbDelta($sqlQuery);
         }
+        $this->pagina_personalizada();
+    }
+
+    private function pagina_personalizada()
+    {
+        global $wpdb;
+        $is_slug_exists = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM ". $wpdb->prefix . "posts 
+                        WHERE post_name = %s", "teste-page-01"
+            ), ARRAY_A
+        );
+
+        if (empty($is_slug_exists)) {
+            $page = array();
+            $page['post_title'] = "Teste Page 1";
+            $page['post_content'] = "COnteudo da página <strong>TESTE</strong>";
+            $page['post_status'] = "publish";
+            $page['post_name'] = "teste-page-01";
+            $page['post_type'] = "page";
+            $post_id = wp_insert_post($page);
+            add_option("pagina_personalizada", $post_id);
+        }else{
+
+        }
+
+
     }
 
 }
