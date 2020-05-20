@@ -858,7 +858,71 @@ get_footer();
 
 ## <a name="parte16">16 - Different ways to get user data</a>
 
+```html
 
+    <div class="container">
+        <div class="row">
+            <h4>get_userdata</h4>
+            <?="<pre>"?>
+            <?php
+
+            global $user_ID;
+            print_r(get_userdata($user_ID));
+
+            ?>
+            <?="</pre>"?>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <h4>get_currentuserinfo</h4>
+            <?="<pre>"?>
+            <?php
+
+            print_r(get_currentuserinfo());
+            //Deprecated:  get_currentuserinfo está obsoleto desde a versão 4.5.0! Use wp_get_current_user() em seu lugar
+            ?>
+            <?="</pre>"?>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <h4>new WP_User($user_ID)</h4>
+            <?="<pre>"?>
+            <?php
+                global $user_ID;
+                $user_details = new WP_User($user_ID);
+                print_r($user_details);
+            ?>
+            <?="</pre>"?>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <h4>get_current_user_id()</h4>
+            <?="<pre>"?>
+            <?php
+                echo get_current_user_id();
+            ?>
+            <?="</pre>"?>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <h4>wp_get_current_user()</h4>
+            <?="<pre>"?>
+            <?php
+                print_r(wp_get_current_user());
+            ?>
+            <?="</pre>"?>
+        </div>
+    </div>
+
+```
 
 [Voltar ao Índice](#indice)
 
